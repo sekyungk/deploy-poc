@@ -5,6 +5,9 @@ on:
       sha:
         description: "Commit SHA"
         required: true
+      version:
+        description: "Version"
+        required: true
 
 jobs:
   deploy:
@@ -30,3 +33,12 @@ jobs:
 
       - name: Deploy static site to S3 bucket
         run: aws s3 sync ./build s3://test.sekyung.kim
+
+      - name: Create Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.event.inputs.version }}
+          release_name: ${{ github.event.inputs.version }}
+          commitish: ${{ github.event.inputs.sha }}
