@@ -11,6 +11,7 @@ on:
   release:
     types:
       - "published"
+      - "created"
 
 jobs:
   deploy:
