@@ -1,17 +1,17 @@
 name: Production Deployment
 on:
-  workflow_dispatch:
-    inputs:
-      sha:
-        description: "Commit SHA"
-        required: true
-      version:
-        description: "Version"
-        required: true
+  # workflow_dispatch:
+  #   inputs:
+  #     sha:
+  #       description: "Commit SHA"
+  #       required: true
+  #     version:
+  #       description: "Version"
+  #       required: true
   release:
     types:
-      - "published"
-      - "created"
+      - published
+      - created
 
 jobs:
   deploy:
