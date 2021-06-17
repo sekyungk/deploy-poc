@@ -15,7 +15,7 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          WEBP-7
+          WEBP-8
         </a>
       </header>
     </div>
