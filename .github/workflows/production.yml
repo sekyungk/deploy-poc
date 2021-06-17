@@ -8,6 +8,9 @@ on:
       version:
         description: "Version"
         required: true
+  release:
+    types:
+      - "published"
 
 jobs:
   deploy:
