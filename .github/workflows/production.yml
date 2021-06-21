@@ -16,9 +16,6 @@ jobs:
     environment: production
 
     steps:
-      - name: Usage
-        uses: actions/javascript-action@${{ github.event.inputs.sha }}
-
       - name: Checkout
         uses: actions/checkout@v2
         with:
