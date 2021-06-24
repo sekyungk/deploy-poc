@@ -11,9 +11,6 @@ jobs:
     environment: production
 
     steps:
-      - name: Echo
-        run: echo ${{ GITHUB_SHA }}
-
       - name: Checkout
         uses: actions/checkout@v2
         with:
