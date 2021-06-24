@@ -3,7 +3,6 @@ on:
   release:
     types:
       - published
-      - created
 
 jobs:
   deploy:
@@ -13,10 +12,12 @@ jobs:
 
     steps:
       - name: Echo
-        run: ${{ GITHUB_SHA }}
+        run: echo ${{ GITHUB_SHA }}
 
       - name: Checkout
         uses: actions/checkout@v2
+        with:
+          ref: ${{ GITHUB_SHA }}
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
