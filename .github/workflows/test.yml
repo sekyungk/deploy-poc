@@ -4,7 +4,6 @@ on:
     inputs:
       sha:
         description: "Commit SHA"
-        default: ${{ github.sha }}
         required: false
 
 jobs:
@@ -17,7 +16,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          ref: ${{ github.event.inputs.sha }}
+          ref: ${{ github.event.inputs.sha ?? github.sha }}
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
