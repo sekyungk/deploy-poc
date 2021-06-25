@@ -36,7 +36,7 @@ jobs:
           repo: deploy-poc
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: echo
+      - run: echo
 
       - name: TEST
       - uses: octokit/request-action@v2.x
@@ -47,4 +47,4 @@ jobs:
           release_id: ${{ fromJson(steps.get_latest_release.outputs.data).id }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: echo
+      - run: echo
