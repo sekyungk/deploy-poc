@@ -34,7 +34,7 @@ jobs:
       # Node.js script can be anywhere. A good convention is to put local GitHub Actions
       # into the `.github/actions` folder
       - run: node .github/actions/my-script.js
-        with:
+        env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TAG_NAME: ${{ github.event.release.tag_name }}
 
