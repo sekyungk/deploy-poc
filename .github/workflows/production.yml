@@ -30,9 +30,12 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           version: 12
-      - if: ${{ failure() }}
-      - run: npm install @octokit/action
-      - run: node .github/actions/my-script.js
+
+      - name: Test
+        if: ${{ failure() }}
+        run: |
+          npm install @octokit/action
+          node .github/actions/my-script.js
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TAG_NAME: ${{ github.event.release.tag_name }}
