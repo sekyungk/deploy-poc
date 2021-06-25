@@ -18,8 +18,8 @@ jobs:
         id: get_latest_release
         with:
           route: GET /repos/{owner}/{repo}/releases/tags/${{ github.event.release.tag_name }}
-          owner: octokit
-          repo: request-action
+          owner: sekyungk
+          repo: deploy-poc
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
