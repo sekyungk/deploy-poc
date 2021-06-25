@@ -22,7 +22,7 @@ jobs:
           aws-region: ap-northeast-2
 
       - name: build
-        run: npm install && npm run build
+        run: npm install && npm run buil
 
       - name: Deploy static site to S3 bucket
         run: aws s3 sync ./build s3://test.sekyung.kim
