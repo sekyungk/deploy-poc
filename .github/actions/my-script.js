@@ -9,7 +9,7 @@ const { data } = await octokit.request(
   {
     owner,
     repo,
-    tag_name,
+    tag_name: "1.38.0",
   }
 );
 console.log("Issue created: %s", data);
