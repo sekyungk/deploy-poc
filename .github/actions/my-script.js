@@ -8,22 +8,23 @@ myAsyncMethod();
 
 async function myAsyncMethod() {
   const { data: releases } = await octokit.request(
-    "GET /repos/{owner}/{repo}/releases/tags/{TAG_NAME}",
+    "GET /repos/{owner}/{repo}/releases/tags/{tag}",
     {
       owner,
       repo,
-      TAG_NAME,
+      tag: TAG_NAME,
     }
   );
 
-  const { data } = await octokit.request(
-    "Delete /repos/{owner}/{repo}/releases/{release_id}",
-    {
-      owner,
-      repo,
-      release_id: releases.id,
-    }
-  );
+  await octokit.request("Delete /repos/{owner}/{repo}/releases/{release_id}", {
+    owner,
+    repo,
+    release_id: releases.id,
+  });
 
-  console.log(data);
+  await octokit.request("Delete /repos/{owner}/{repo}/git/refs/tags/{tag}", {
+    owner,
+    repo,
+    tag: TAG_NAME,
+  });
 }
