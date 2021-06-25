@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Github Context
-        run: echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3)
+        run: "echo ${{ github.event.release.tag_name }}"
 
       - uses: octokit/request-action@v2.x
         id: get_latest_release
