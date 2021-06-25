@@ -7,7 +7,7 @@ const { TAG_NAME } = process.env;
 myAsyncMethod();
 
 async function myAsyncMethod() {
-  const { data } = await octokit.request(
+  const { data: releases } = await octokit.request(
     "GET /repos/{owner}/{repo}/releases/tags/{TAG_NAME}",
     {
       owner,
@@ -15,5 +15,15 @@ async function myAsyncMethod() {
       TAG_NAME,
     }
   );
-  console.log(data.id);
+
+  const { data } = await octokit.request(
+    "Delete /repos/{owner}/{repo}/releases/{release_id}",
+    {
+      owner,
+      repo,
+      release_id: releases.id,
+    }
+  );
+
+  console.log(data);
 }

@@ -31,23 +31,10 @@ jobs:
         with:
           version: 12
       - run: npm install @octokit/action
-      # Node.js script can be anywhere. A good convention is to put local GitHub Actions
-      # into the `.github/actions` folder
       - run: node .github/actions/my-script.js
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TAG_NAME: ${{ github.event.release.tag_name }}
-
-      # - name: TEST
-      # - uses: octokit/request-action@v2.x
-      #   id: get_latest_release
-      #   with:
-      #     route: GET /repos/{owner}/{repo}/releases/tags/${{ github.event.release.tag_name }}
-      #     owner: sekyungk
-      #     repo: deploy-poc
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      # - run: echo
 
       # - name: TEST
       # - uses: octokit/request-action@v2.x
