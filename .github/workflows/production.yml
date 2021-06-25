@@ -40,6 +40,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - run: "echo latest release: ${{ fromJson(steps.get_latest_release.outputs.data).id }}"
+
       - name: Delete release
       - uses: octokit/request-action@v2.x
         with:
@@ -48,3 +50,5 @@ jobs:
           repo: deploy-poc
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - run: "echo latest release: ${{ fromJson(steps.get_latest_release.outputs.data).id }}"
