@@ -22,10 +22,10 @@ jobs:
           aws-region: ap-northeast-2
 
       - name: build
-        run: npm install && npm run buil
+        run: npm install && npm run build
 
       - name: Deploy static site to S3 bucket
-        run: aws s3 sync ./build s3://test.sekyung.kim
+        run: aws s3 sync ./build s3://test.sekyung.ki
 
       - name: The job has failed
         if: ${{ failure() }}
