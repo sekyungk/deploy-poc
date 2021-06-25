@@ -27,24 +27,35 @@ jobs:
       - name: Deploy static site to S3 bucket
         run: aws s3 sync ./build s3://test.sekyung.ki
 
-      - name: TEST
-      - uses: octokit/request-action@v2.x
-        id: get_latest_release
+      - uses: actions/setup-node@v1
         with:
-          route: GET /repos/{owner}/{repo}/releases/tags/${{ github.event.release.tag_name }}
-          owner: sekyungk
-          repo: deploy-poc
+          version: 12
+      - run: npm install @octokit/action
+      # Node.js script can be anywhere. A good convention is to put local GitHub Actions
+      # into the `.github/actions` folder
+      - run: node .github/actions/my-script.js
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - run: echo
+          tag_name: ${{ github.event.release.tag_name }}
 
-      - name: TEST
-      - uses: octokit/request-action@v2.x
-        with:
-          route: Delete /repos/{owner}/{repo}/releases/{release_id}
-          owner: sekyungk
-          repo: deploy-poc
-          release_id: ${{ fromJson(steps.get_latest_release.outputs.data).id }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - run: echo
+      # - name: TEST
+      # - uses: octokit/request-action@v2.x
+      #   id: get_latest_release
+      #   with:
+      #     route: GET /repos/{owner}/{repo}/releases/tags/${{ github.event.release.tag_name }}
+      #     owner: sekyungk
+      #     repo: deploy-poc
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # - run: echo
+
+      # - name: TEST
+      # - uses: octokit/request-action@v2.x
+      #   with:
+      #     route: Delete /repos/{owner}/{repo}/releases/{release_id}
+      #     owner: sekyungk
+      #     repo: deploy-poc
+      #     release_id: ${{ fromJson(steps.get_latest_release.outputs.data).id }}
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # - run: echo
