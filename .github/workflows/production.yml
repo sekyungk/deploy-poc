@@ -30,7 +30,6 @@ jobs:
       - name: The job has failed
         if: ${{ failure() }}
 
-      - name: Get release_id
       - uses: octokit/request-action@v2.x
         id: get_latest_release
         with:
@@ -40,15 +39,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - run: "echo latest release: ${{ fromJson(steps.get_latest_release.outputs.data).id }}"
-
-      - name: Delete release
       - uses: octokit/request-action@v2.x
         with:
-          route: Delete /repos/{owner}/{repo}/releases/${{ fromJson(steps.get_latest_release.outputs.data).id }}
+          route: Delete /repos/{owner}/{repo}/releases/{release_id}
           owner: sekyungk
           repo: deploy-poc
+          release_id: ${{ fromJson(steps.get_latest_release.outputs.data).id }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - run: "echo latest release: ${{ fromJson(steps.get_latest_release.outputs.data).id }}"
