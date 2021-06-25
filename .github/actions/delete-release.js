@@ -4,9 +4,9 @@ const octokit = new Octokit();
 const [owner, repo] = process.env.GITHUB_REPOSITORY.split("/");
 const { TAG_NAME } = process.env;
 
-myAsyncMethod();
+deleteReleaseTag();
 
-async function myAsyncMethod() {
+async function deleteReleaseTag() {
   const { data: releases } = await octokit.request(
     "GET /repos/{owner}/{repo}/releases/tags/{tag}",
     {
