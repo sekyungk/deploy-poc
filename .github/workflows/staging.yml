@@ -31,5 +31,5 @@ jobs:
         run: aws s3 sync ./build s3://staging.sekyung.kim
 
       - name: Check Main Staging
-        if: contains(github.ref, 'staging-')
+        if: contains(github.ref, '-staging')
         run: aws s3 sync ./build s3://${GITHUB_REF#refs/heads/}.sekyung.kim
