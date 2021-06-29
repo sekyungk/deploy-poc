@@ -1,0 +1,35 @@
+name: Staging Deployment
+
+on:
+  push:
+    branches:
+      - master
+      - staging-**
+
+jobs:
+  development:
+    name: Deploy Development
+    runs-on: ubuntu-latest
+    environment: development
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: build
+        run: npm install && npm run build
+
+  staging:
+    name: Deploy Staging
+    runs-on: ubuntu-latest
+    environment: staging
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: build
+        run: npm install && npm run build
+
+      - name: test
+        run: "echo ${{ github.ref }}"
