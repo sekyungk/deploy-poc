@@ -42,3 +42,10 @@ jobs:
           tag_name: ${{ github.event.inputs.version }}
           release_name: ${{ github.event.inputs.version }}
           commitish: ${{ github.event.inputs.sha }}
+
+      - name: Update Deployment Reference
+        run: node .github/actions/update-ref.js
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          deployment: production
+          sha: ${{ github.event.inputs.sha }}
