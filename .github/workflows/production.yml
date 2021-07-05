@@ -1,8 +1,13 @@
 name: Production Deployment
 on:
-  release:
-    types:
-      - published
+  workflow_dispatch:
+    inputs:
+      sha:
+        description: "Commit SHA"
+        required: true
+      version:
+        description: "Version"
+        required: true
 
 jobs:
   deploy:
@@ -11,13 +16,10 @@ jobs:
     environment: production
 
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - name: Checkout
+        uses: actions/checkout@v2
         with:
-          node-version: "16"
-
-      - name: Build
-        run: npm install && npm run build
+          ref: ${{ github.event.inputs.sha }}
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -26,12 +28,17 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-northeast-2
 
+      - name: build
+        run: npm install && npm run build
+
       - name: Deploy static site to S3 bucket
         run: aws s3 sync ./build s3://test.sekyung.kim
 
-      - name: Delete release
-        if: ${{ failure() }}
-        run: node .github/actions/delete-release.js
+      - name: Create Release
+        uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TAG_NAME: ${{ github.event.release.tag_name }}
+        with:
+          tag_name: ${{ github.event.inputs.version }}
+          release_name: ${{ github.event.inputs.version }}
+          commitish: ${{ github.event.inputs.sha }}
