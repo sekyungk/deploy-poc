@@ -35,3 +35,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TAG_NAME: ${{ github.event.release.tag_name }}
+
+      - name: Update Deployment Reference
+        run: node .github/actions/update-ref.js
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          deployment: production
+          sha: ${{ github.event.inputs.sha }}
