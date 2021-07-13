@@ -33,3 +33,10 @@ jobs:
       - name: Check Main Staging
         if: contains(github.ref, 'staging-')
         run: aws s3 sync ./build s3://${GITHUB_REF#refs/heads/}.sekyung.kim
+
+      - name: Update Deployment Reference
+        run: node .github/actions/update-ref.js
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          deployment: staging
+          sha: ${{ github.event.inputs.sha }}
