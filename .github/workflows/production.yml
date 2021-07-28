@@ -22,7 +22,7 @@ jobs:
           ref: ${{ github.event.inputs.sha }}
 
       - name: build
-        run: npm install && npm run buil
+        run: npm install && npm run build
 
       - name: Create Release
         uses: actions/create-release@v1
@@ -32,3 +32,12 @@ jobs:
           tag_name: ${{ github.event.inputs.version }}
           release_name: ${{ github.event.inputs.version }}
           commitish: ${{ github.event.inputs.sha }}
+
+      - name: If deployment fails, delete release & tag
+        if: ${{ failure() }}
+        run: |
+          npm install @octokit/action
+          node .github/actions/delete-release.js
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG_NAME: ${{ github.event.release.tag_name }}
