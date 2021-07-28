@@ -1,13 +1,8 @@
 name: Production Deployment
 on:
-  workflow_dispatch:
-    inputs:
-      sha:
-        description: "Commit SHA"
-        required: true
-      version:
-        description: "Version"
-        required: true
+  release:
+    types:
+      - published
 
 jobs:
   deploy:
@@ -23,15 +18,6 @@ jobs:
 
       - name: build
         run: npm install && npm run build
-
-      - name: Create Release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.event.inputs.version }}
-          release_name: ${{ github.event.inputs.version }}
-          commitish: ${{ github.event.inputs.sha }}
 
       - name: If deployment fails, delete release & tag
         if: ${{ failure() }}
