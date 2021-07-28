@@ -3,8 +3,8 @@ name: Deploy
 on: deployment
 
 jobs:
-  development:
-    name: Deploy to development
+  deploy:
+    name: Deploy to production
     if: github.event.deployment.environment == 'production'
     environment: production
     runs-on: ubuntu-latest
