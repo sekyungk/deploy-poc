@@ -6,12 +6,9 @@ on:
       - master
 
 jobs:
-  deploy:
+  d:
     name: Deploy Staging
     runs-on: ubuntu-latest
-    environment:
-      name: staging
-      url: "a"
 
     steps:
       - name: Checkout
@@ -19,10 +16,3 @@ jobs:
 
       - name: build
         run: npm install && npm run build
-
-      - name: Update Deployment Reference
-        run: node .github/actions/update-ref.js
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          deployment: staging
-          sha: ${{ github.sha }}
