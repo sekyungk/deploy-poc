@@ -5,14 +5,13 @@ on:
     branches:
       - master
 
-permissions:
-  deployments: none
-
 jobs:
   deploy:
     name: Deploy Staging
     runs-on: ubuntu-latest
-    environment: staging
+    environment:
+      name: staging
+      url: "a"
 
     steps:
       - name: Checkout
