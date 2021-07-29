@@ -9,6 +9,7 @@ jobs:
   d:
     name: Deploy Staging
     runs-on: ubuntu-latest
+    environment: staging
 
     steps:
       - name: Checkout
@@ -18,7 +19,4 @@ jobs:
         run: npm install && npm run build
 
       - name: TEST
-        run: echo ${{ github.event }}
-
-      - name: TEST
-        run: echo ${{ secrets.staging.AWS_ACCESS_KEY }}
+        run: echo ${{ toJson(github.event) }}
