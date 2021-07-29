@@ -9,6 +9,7 @@ jobs:
   d:
     name: Deploy Staging
     runs-on: ubuntu-latest
+    environment: staging
 
     steps:
       - name: Checkout
@@ -18,4 +19,4 @@ jobs:
         run: npm install && npm run build
 
       - name: TEST
-        run: echo ${{ github.event.deployment }}
+        run: echo ${{ github.event.deployment.payload }}
