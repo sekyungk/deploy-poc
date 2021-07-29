@@ -5,6 +5,9 @@ on:
     branches:
       - master
 
+permissions:
+  deployments: none
+
 jobs:
   deploy:
     name: Deploy Staging
