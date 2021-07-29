@@ -16,3 +16,6 @@ jobs:
 
       - name: build
         run: npm install && npm run build
+
+      - name: TEST
+        run: echo ${{ github.event.deployment }}
